@@ -1,0 +1,23 @@
+- form_for(@attachment, :url => url_for(:controller=>"attached_files" ,:action=>"upload",:format => "js"), :html => { :multipart => true, :target => "uploading", :onsubmit => "$('user_submit).disabled = true" }) do |f|
+  = link_to_close new_attached_file_path
+  = hidden_field_tag :view, @view
+  = hidden_field_tag "attached_file[user_id]", @current_user.id
+  = hidden_field_tag "attached_file[attachable_id]", "#{@asset.id if @asset}"
+  = hidden_field_tag "attached_file[attachable_type]", "#{@asset.class if @asset}"
+  .section
+    %table{ :width => 500, :cellpadding => 0, :cellspacing => 0 }
+      %tr
+        %td{ :valign => :top, :colspan => 5 }
+          .label.top.req #{t:name}:
+          = f.text_field :name, :style => "width:350px"
+      %tr
+        %td{ :valign => :top, :colspan => 5 }
+          .label.top.req #{t:file}:
+          = f.file_field :attachment
+  .buttonbar
+    = f.submit t(:upload_file), :onclick => "this.disabled = true"
+    #{t:or}
+    = link_to_cancel new_attached_file_path
+%b
+
+

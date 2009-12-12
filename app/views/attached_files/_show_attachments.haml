@@ -1,0 +1,9 @@
+-#  AttachedFile list here-----------------------------------------------------------------------------
+%br
+- asset = instance_variable_get("@" << controller.controller_name.singularize)
+= inline :create_attached_file, new_attached_file_path, { :class => "subtitle_tools", :related => dom_id(asset), :text => t(:create_attachment) }
+.subtitle#create_attached_file_title #{t:attachments}
+.remote#create_attached_file{ hidden }
+.log#attached_files
+  = render :partial => "attached_files/file" , :collection => asset.attached_files
+%iframe#uploading{ :name => "uploading", :style => "width:100px; height:10px; border:5px" }

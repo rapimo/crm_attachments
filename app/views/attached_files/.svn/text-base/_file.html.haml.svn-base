@@ -1,0 +1,8 @@
+%li[file]{ highlightable(dom_id(file, :tools)) }
+  .strip.black #{file.mime_type[/[\w-]+$/]}
+  .tools{ invisible, :id => dom_id(file, :tools) }
+  .indent
+    = link_to(file.name, download_attached_file_path(file))
+    = "(#{file.file_size / 1.kilobyte} kb)"
+    %tt= time_ago(file.created_at)
+

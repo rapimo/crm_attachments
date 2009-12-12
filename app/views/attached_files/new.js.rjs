@@ -1,0 +1,9 @@
+page.call "crm.flick", :empty, :toggle
+page.call "crm.flip_form", :create_attached_file
+
+if params[:cancel] != "true"
+  page[:create_attached_file].replace_html :partial => "create"
+  page.call "crm.set_title", :create_attached_file, t(:create_attachment)
+else
+  page.call "crm.set_title", :create_attached_file, t(:attachments)
+end

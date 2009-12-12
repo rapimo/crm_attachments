@@ -1,0 +1,15 @@
+if @attachment.valid?
+  page[:create_attached_file_arrow].replace_html "&#9658;"
+  page.visual_effect :toggle_blind, :create_attached_file, :duration => 0.3, :afterFinish => 'function(effect) {effect.element.update("")}'
+
+  # Inline [Create AttachedFile] form reqested from any of the core asset landing pages.
+    page[:create_attached_file_title].replace_html(t:attachments)
+    page.insert_html :top, :attached_files, :partial => "attached_files/file", :collection => [@attachment]
+    page[dom_id(@attachment)].visual_effect :highlight, :duration => 1.5
+    page[:recently].replace :partial => "common/recently"
+
+else # Couldn't create the attachment -- validation failed.
+  page[:create_attached_file].visual_effect :shake, :duration => 0.25, :distance => 6
+  page[:attached_file_submit].enable
+  page[:attached_file_attachment].focus
+end
